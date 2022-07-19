@@ -1,65 +1,31 @@
-import { Box, ContextView, Inline, Link } from "@stripe/ui-extension-sdk/ui";
-import type { ExtensionContextValue } from "@stripe/ui-extension-sdk/context";
+import { Box, ContextView, Img } from '@stripe/ui-extension-sdk/ui';
+import type { ExtensionContextValue } from '@stripe/ui-extension-sdk/context';
+import * as THREE from 'three';
 
-import BrandIcon from "./brand_icon.svg";
+import BrandIcon from './brand_icon.svg';
 
-/**
- * This is a view that is rendered in the Stripe dashboard's customer detail page.
- * In stripe-app.json, this view is configured with stripe.dashboard.customer.detail viewport.
- * You can add a new view by running "stripe apps add view" from the CLI.
- */
+// red square for initial testing
+const pngData = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASAAAAEgCAYAAAAUg66AAAAACXBIWXMAAAsTAAALEwEAmpwYAAADoklEQVR4nO3UMQEAIAzAMOCff7kgoweJgl7dd+YugMCpA4B/GRCQMSAgY0BAxoCAjAEBGQMCMgYEZAwIyBgQkDEgIGNAQMaAgIwBARkDAjIGBGQMCMgYEJAxICBjQEDGgICMAQEZAwIyBgRkDAjIGBCQMSAgY0BAxoCAjAEBGQMCMgYEZAwIyBgQkDEgIGNAQMaAgIwBARkDAjIGBGQMCMgYEJAxICBjQEDGgICMAQEZAwIyBgRkDAjIGBCQMSAgY0BAxoCAjAEBGQMCMgYEZAwIyBgQkDEgIGNAQMaAgIwBARkDAjIGBGQMCMgYEJAxICBjQEDGgICMAQEZAwIyBgRkDAjIGBCQMSAgY0BAxoCAjAEBGQMCMgYEZAwIyBgQkDEgIGNAQMaAgIwBARkDAjIGBGQMCMgYEJAxICBjQEDGgICMAQEZAwIyBgRkDAjIGBCQMSAgY0BAxoCAjAEBGQMCMgYEZAwIyBgQkDEgIGNAQMaAgIwBARkDAjIGBGQMCMgYEJAxICBjQEDGgICMAQEZAwIyBgRkDAjIGBCQMSAgY0BAxoCAjAEBGQMCMgYEZAwIyBgQkDEgIGNAQMaAgIwBARkDAjIGBGQMCMgYEJAxICBjQEDGgICMAQEZAwIyBgRkDAjIGBCQMSAgY0BAxoCAjAEBGQMCMgYEZAwIyBgQkDEgIGNAQMaAgIwBARkDAjIGBGQMCMgYEJAxICBjQEDGgICMAQEZAwIyBgRkDAjIGBCQMSAgY0BAxoCAjAEBGQMCMgYEZAwIyBgQkDEgIGNAQMaAgIwBARkDAjIGBGQMCMgYEJAxICBjQEDGgICMAQEZAwIyBgRkDAjIGBCQMSAgY0BAxoCAjAEBGQMCMgYEZAwIyBgQkDEgIGNAQMaAgIwBARkDAjIGBGQMCMgYEJAxICBjQEDGgICMAQEZAwIyBgRkDAjIGBCQMSAgY0BAxoCAjAEBGQMCMgYEZAwIyBgQkDEgIGNAQMaAgIwBARkDAjIGBGQMCMgYEJAxICBjQEDGgICMAQEZAwIyBgRkDAjIGBCQMSAgY0BAxoCAjAEBGQMCMgYEZAwIyBgQkDEgIGNAQMaAgIwBARkDAjIGBGQMCMgYEJAxICBjQEDGgICMAQEZAwIyBgRkDAjIGBCQMSAgY0BAxoCAjAEBGQMCMgYEZAwIyBgQkDEgIGNAQMaAgIwBARkDAjIGBGQMCMgYEJAxICBjQEDGgICMAQEZAwIyDx/fBFiCR5C3AAAAAElFTkSuQmCC';
+
 const App = ({ userContext, environment }: ExtensionContextValue) => {
-  return (
-    <ContextView
-      title="Hello world"
-      brandColor="#F6F8FA" // replace this with your brand color
-      brandIcon={BrandIcon} // replace this with your brand icon
-      externalLink={{
-        label: "View docs",
-        href: "https://stripe.com/docs/stripe-apps"
-      }}
-    >
-      <Box css={{ height: "fill", stack: "y", distribute: "space-between" }}>
-        <Box
-          css={{
-            background: "container",
-            borderRadius: "medium",
-            marginTop: "small",
-            padding: "large",
-          }}>
-          Edit{" "}
-          <Inline css={{ fontFamily: "monospace" }}>src/views/App.tsx</Inline>{" "}
-          and save to reload this view.
-        </Box>
+	const scene = new THREE.Scene();
+	console.log(scene);
 
-        <Box css={{ color: "secondary" }}>
-          <Box css={{ marginBottom: "medium" }}>
-            Learn more about views, authentication, and accessing data in{" "}
-            <Link
-              href="https://stripe.com/docs/stripe-apps"
-              target="blank"
-              type="secondary"
-            >
-              Stripe Apps docs
-            </Link>
-            .
-          </Box>
+	// outer div=320 width, 16 padding [320 - (16 * 2) = 288]
+	return (
+		<ContextView
+			title='Hello WebGL!'
+			brandColor='#F6F8FA' // replace this with your brand color
+			brandIcon={BrandIcon} // replace this with your brand icon
+			externalLink={{
+				label: 'View on GitHub',
+				href: 'https://github.com/falken42/stripe-apps-webgl'
+			}}
+			>
 
-          <Box css={{ marginBottom: "medium" }}>
-            Questions? Get help with your app from the{" "}
-            <Link
-              href="https://github.com/stripe/stripe-apps/wiki/Developer-Support"
-              target="blank"
-              type="secondary"
-            >
-              Stripe Apps wiki
-            </Link>
-            .
-          </Box>
-        </Box>
-      </Box>
-    </ContextView>
-  );
+			<Img width='288' height='288' src={pngData} />
+		</ContextView>
+	);
 };
 
 export default App;
