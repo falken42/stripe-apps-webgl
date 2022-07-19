@@ -2,6 +2,10 @@
 
 Implementing WebGL within a Stripe App (using [Three.js](https://github.com/mrdoob/three.js/))
 
+## Screenshot
+
+![Screenshot](stripe-webgl-demo.png)
+
 ## Prerequisites
 
 For Homebrew on macOS,
