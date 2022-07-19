@@ -4,14 +4,30 @@ import * as THREE from 'three';
 
 import BrandIcon from './brand_icon.svg';
 
-// red square for initial testing
-const pngData = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASAAAAEgCAYAAAAUg66AAAAACXBIWXMAAAsTAAALEwEAmpwYAAADoklEQVR4nO3UMQEAIAzAMOCff7kgoweJgl7dd+YugMCpA4B/GRCQMSAgY0BAxoCAjAEBGQMCMgYEZAwIyBgQkDEgIGNAQMaAgIwBARkDAjIGBGQMCMgYEJAxICBjQEDGgICMAQEZAwIyBgRkDAjIGBCQMSAgY0BAxoCAjAEBGQMCMgYEZAwIyBgQkDEgIGNAQMaAgIwBARkDAjIGBGQMCMgYEJAxICBjQEDGgICMAQEZAwIyBgRkDAjIGBCQMSAgY0BAxoCAjAEBGQMCMgYEZAwIyBgQkDEgIGNAQMaAgIwBARkDAjIGBGQMCMgYEJAxICBjQEDGgICMAQEZAwIyBgRkDAjIGBCQMSAgY0BAxoCAjAEBGQMCMgYEZAwIyBgQkDEgIGNAQMaAgIwBARkDAjIGBGQMCMgYEJAxICBjQEDGgICMAQEZAwIyBgRkDAjIGBCQMSAgY0BAxoCAjAEBGQMCMgYEZAwIyBgQkDEgIGNAQMaAgIwBARkDAjIGBGQMCMgYEJAxICBjQEDGgICMAQEZAwIyBgRkDAjIGBCQMSAgY0BAxoCAjAEBGQMCMgYEZAwIyBgQkDEgIGNAQMaAgIwBARkDAjIGBGQMCMgYEJAxICBjQEDGgICMAQEZAwIyBgRkDAjIGBCQMSAgY0BAxoCAjAEBGQMCMgYEZAwIyBgQkDEgIGNAQMaAgIwBARkDAjIGBGQMCMgYEJAxICBjQEDGgICMAQEZAwIyBgRkDAjIGBCQMSAgY0BAxoCAjAEBGQMCMgYEZAwIyBgQkDEgIGNAQMaAgIwBARkDAjIGBGQMCMgYEJAxICBjQEDGgICMAQEZAwIyBgRkDAjIGBCQMSAgY0BAxoCAjAEBGQMCMgYEZAwIyBgQkDEgIGNAQMaAgIwBARkDAjIGBGQMCMgYEJAxICBjQEDGgICMAQEZAwIyBgRkDAjIGBCQMSAgY0BAxoCAjAEBGQMCMgYEZAwIyBgQkDEgIGNAQMaAgIwBARkDAjIGBGQMCMgYEJAxICBjQEDGgICMAQEZAwIyBgRkDAjIGBCQMSAgY0BAxoCAjAEBGQMCMgYEZAwIyBgQkDEgIGNAQMaAgIwBARkDAjIGBGQMCMgYEJAxICBjQEDGgICMAQEZAwIyBgRkDAjIGBCQMSAgY0BAxoCAjAEBGQMCMgYEZAwIyBgQkDEgIGNAQMaAgIwBARkDAjIGBGQMCMgYEJAxICBjQEDGgICMAQEZAwIyDx/fBFiCR5C3AAAAAElFTkSuQmCC';
-
 const App = ({ userContext, environment }: ExtensionContextValue) => {
-	const scene = new THREE.Scene();
-	console.log(scene);
-
 	// outer div=320 width, 16 padding [320 - (16 * 2) = 288]
+	const width  = 288;
+	const height = 288;
+
+	const camera = new THREE.PerspectiveCamera(70, width / height, 0.01, 10);
+	camera.position.z = 1;
+
+	const scene = new THREE.Scene();
+
+	const geometry = new THREE.BoxGeometry(0.4, 0.4, 0.4);
+	const material = new THREE.MeshNormalMaterial();
+
+	const mesh = new THREE.Mesh(geometry, material);
+	scene.add(mesh);
+	mesh.rotation.x = 0.35;
+	mesh.rotation.y = 0.65;
+
+	const renderer = new THREE.WebGLRenderer( { antialias: true } );
+	renderer.setSize(width, height);
+	renderer.render(scene, camera);
+
+	const pngData = renderer.domElement.toDataURL();
+
 	return (
 		<ContextView
 			title='Hello WebGL!'

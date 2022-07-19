@@ -1,7 +1,7 @@
 {
   "name": "jp.co.coldfusion.stripe-apps.webgl",
   "version": "0.0.1",
-  "description": "Stripe Apps Webgl",
+  "description": "Stripe Apps WebGL",
   "private": true,
   "license": "~~proprietary~~",
   "dependencies": {
