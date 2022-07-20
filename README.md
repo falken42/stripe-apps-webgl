@@ -2,9 +2,9 @@
 
 Implementing WebGL within a Stripe App (using [Three.js](https://github.com/mrdoob/three.js/))
 
-## Screenshot
+## Demo
 
-![Screenshot](stripe-webgl-demo.png)
+![Demo](stripe-webgl-demo.gif)
 
 ## Prerequisites
 
@@ -23,13 +23,33 @@ For more info, see: https://stripe.com/docs/stripe-apps/create-app
 
 ## How It Works
 
-As Stripe Apps run in an sandboxed iframe and do not have direct access to the DOM, and there (currently) is no [UI Component](https://stripe.com/docs/stripe-apps/components) in the Stripe Apps that can be used to obtain access to a HTML Canvas, it is not possible to directly render GPU output into a Stripe App.
+As Stripe Apps run in an sandboxed `iframe` and do not have direct access to the parent DOM, and there (currently) is no [UI Component](https://stripe.com/docs/stripe-apps/components) which can be used to create or obtain access to a HTML Canvas, it is not possible to *directly* render GPU output into a Stripe App.
 
-Stripe Apps do however support display of images, specifically images that can be specified via [data URLs](https://stripe.com/docs/stripe-apps/components/img#data-urls), which can be generated and encoded at runtime.  Using this method, we can render WebGL output into a buffer, copy out the final rendered frame, encode the frame into an image, and display it within the app's view.
+(There is [discussion](https://github.com/stripe/stripe-apps/issues/192#issuecomment-1126359398) that a `WebView` component might be added in the future post-launch.)
+
+Stripe Apps do however support display of images, specifically images that can be shown via [data URLs](https://stripe.com/docs/stripe-apps/components/img#data-urls), which can be generated and encoded at runtime.  Using this method, we can render the WebGL output into a buffer, copy out the final rendered frame, encode the frame into an image, and display it within the app's view.
 
 ## Animation
 
-TODO
+Updating the app's view to show a new frame is fairly easy.  We store the output frame (encoded into a data URL) as a React state, which is referenced by the `src` attribute in the `<Img>` tag.  We then hook the renderer's `setAnimationLoop()` call via `useEffect()` when the component is created, and update the image data by changing the state, which displays the new frame.
+
+```
+const ThreeJS = () => {
+	const [renderOutput, setRenderOutput] = useState('');
+
+	useEffect(() => {
+		renderer.setAnimationLoop((time) => {
+			// ...update scene here...
+			renderer.render(scene, camera);
+			setRenderOutput(renderer.domElement.toDataURL());
+		});
+	}, []);
+
+	return (
+		<Img width={width} height={height} src={renderOutput} />
+	);
+}
+```
 
 ## Input
 
