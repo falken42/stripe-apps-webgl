@@ -1,11 +1,25 @@
 import { ContextView, Button } from '@stripe/ui-extension-sdk/ui';
 import type { ExtensionContextValue } from '@stripe/ui-extension-sdk/context';
 import ThreeJS from './ThreeJS';
+import * as THREE from 'three';
 
 import BrandIcon from './brand_icon.svg';
 
 const width  = 288;
 const height = 288;
+
+const geometry = new THREE.BoxGeometry(0.4, 0.4, 0.4);
+const material = new THREE.MeshNormalMaterial();
+const cube = new THREE.Mesh(geometry, material);
+
+function createScene(scene) {
+	scene.add(cube);
+}
+
+function updateScene(scene, time) {
+	cube.rotation.x = time / 2000.0;
+	cube.rotation.y = time / 1000.0;
+}
 
 const App = ({ userContext, environment }: ExtensionContextValue) => {
 	return (
@@ -19,7 +33,7 @@ const App = ({ userContext, environment }: ExtensionContextValue) => {
 			}}
 			>
 
-			<ThreeJS width={width} height={height} />
+			<ThreeJS width={width} height={height} onSceneInit={createScene} onSceneUpdate={updateScene} />
 		</ContextView>
 	);
 }

@@ -2,10 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Img } from '@stripe/ui-extension-sdk/ui';
 import * as THREE from 'three';
 
-const geometry = new THREE.BoxGeometry(0.4, 0.4, 0.4);
-const material = new THREE.MeshNormalMaterial();
-const mesh = new THREE.Mesh(geometry, material);
-
 const ThreeJS = (props) => {
 	const [renderOutput, setRenderOutput] = useState('');
 
@@ -25,12 +21,14 @@ const ThreeJS = (props) => {
 
 		// create scene
 		const scene = new THREE.Scene();
-		scene.add(mesh);
+		if (typeof props.onSceneInit === 'function')
+			props.onSceneInit(scene);
 
 		// hook animation loop to redraw frame
 		renderer.setAnimationLoop((time) => {
-			mesh.rotation.x = time / 2000.0;
-			mesh.rotation.y = time / 1000.0;
+			if (typeof props.onSceneUpdate === 'function')
+				props.onSceneUpdate(scene, time);
+
 			renderer.render(scene, camera);
 			setRenderOutput(renderer.domElement.toDataURL());
 		} );
