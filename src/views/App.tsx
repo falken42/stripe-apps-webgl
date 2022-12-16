@@ -4,6 +4,9 @@ import ThreeJS from './ThreeJS';
 
 import BrandIcon from './brand_icon.svg';
 
+const width  = 288;
+const height = 288;
+
 const App = ({ userContext, environment }: ExtensionContextValue) => {
 	return (
 		<ContextView
@@ -16,7 +19,7 @@ const App = ({ userContext, environment }: ExtensionContextValue) => {
 			}}
 			>
 
-			<ThreeJS />
+			<ThreeJS width={width} height={height} />
 		</ContextView>
 	);
 }
