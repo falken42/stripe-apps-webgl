@@ -10,7 +10,7 @@
   "ui_extension": {
     "views": [
       {
-        "viewport": "stripe.dashboard.customer.list",
+        "viewport": "stripe.dashboard.drawer.default",
         "component": "App"
       }
     ],
