@@ -1,4 +1,4 @@
-import { ContextView, Button } from '@stripe/ui-extension-sdk/ui';
+import { ContextView } from '@stripe/ui-extension-sdk/ui';
 import type { ExtensionContextValue } from '@stripe/ui-extension-sdk/context';
 import ThreeJS from './ThreeJS';
 import * as THREE from 'three';
@@ -21,6 +21,10 @@ function updateScene(scene, time) {
 	cube.rotation.y = time / 1000.0;
 }
 
+function mouseEvent(pos) {
+	console.log(pos);
+}
+
 const App = ({ userContext, environment }: ExtensionContextValue) => {
 	return (
 		<ContextView
@@ -33,7 +37,7 @@ const App = ({ userContext, environment }: ExtensionContextValue) => {
 			}}
 			>
 
-			<ThreeJS width={width} height={height} onSceneInit={createScene} onSceneUpdate={updateScene} />
+			<ThreeJS width={width} height={height} onSceneInit={createScene} onSceneUpdate={updateScene} onMouseEvent={mouseEvent} />
 		</ContextView>
 	);
 }
