@@ -1,6 +1,6 @@
 # stripe-apps-webgl
 
-Implementing WebGL within a Stripe App (using [Three.js](https://github.com/mrdoob/three.js/))
+Fast, realtime, and interactive WebGL implementation within a Stripe App (using [Three.js](https://github.com/mrdoob/three.js/))
 
 ## Demo
 
@@ -29,6 +29,10 @@ As Stripe Apps run inside a sandboxed `iframe` and do not have direct access to 
 (Note: there is [discussion](https://github.com/stripe/stripe-apps/issues/192#issuecomment-1126359398) that a `WebView` component might be added in the future, possibly post-launch.)
 
 Stripe Apps do however support display of images, specifically images that can be shown via [data URLs](https://stripe.com/docs/stripe-apps/components/img#data-urls), which can be generated and encoded at runtime.  Using this method, we can render the WebGL output into a buffer, copy out the final rendered frame, encode the frame into an image, and display it within the app's view.
+
+## Performance
+
+While the performance will depend highly on the complexity of the scene being rendered, this demo of a single cube renders easily at 60fps on a Mac Studio M1 Ultra (2022), with approximately a 5-8% GPU usage increase for the `Google Chrome Helper (GPU)` process in Activity Monitor while the Stripe Dashboard tab is opened in fullscreen on a 4K display.
 
 ## Animation
 
