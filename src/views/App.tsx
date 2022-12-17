@@ -21,8 +21,8 @@ function updateScene(scene, time) {
 	cube.rotation.y = time / 1000.0;
 }
 
-function mouseEvent(pos) {
-	console.log(pos);
+function mouseEvent(state) {
+	console.log('pos: (' + state.pos.x + ', ' + state.pos.y + '), buttons: ' + state.buttons);
 }
 
 const App = ({ userContext, environment }: ExtensionContextValue) => {
